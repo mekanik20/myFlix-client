@@ -11,7 +11,8 @@ export class MainView extends React.Component {
         { _id: 1, Title: 'Inception', Description: 'desc1...', ImagePath: '...' },
         { _id: 2, Title: 'The Shawshank Redemption', Description: 'desc2...', ImagePath: '...' },
         { _id: 3, Title: 'Gladiator', Description: 'desc3...', ImagePath: '...' }
-      ]
+      ],
+      selectedMovie: null
     }
   }
 
@@ -23,8 +24,6 @@ export class MainView extends React.Component {
 
   render() {
     const { movies, selectedMovie } = this.state;
-
-    //if (selectedMovie) return <MovieView movie={selectedMovie} />;
 
     if (movies.length === 0) return <div className="main-view">There are no movies here!</div>;
 
