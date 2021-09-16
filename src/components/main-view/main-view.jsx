@@ -35,7 +35,7 @@ export class MainView extends React.Component {
   render() {
     const { movies, selectedMovie } = this.state;
 
-    if (movies.length === 0) return <div className="main-view">There are no movies here!</div>;
+    if (movies.length === 0) return <div className="main-view" />
 
     return (
       <div className="main-view">
