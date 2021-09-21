@@ -17,7 +17,7 @@ export class MainView extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('https://myflixcf.herokuapp.com/')
+    axios.get('https://myflixcf.herokuapp.com/movies')
       .then(response => {
         this.setState({
           movies: response.data,
@@ -51,7 +51,7 @@ export class MainView extends React.Component {
 
     /*If there is no user, the LoginView is rendered. If there is a user
     logged in, the user details are *passed as a prop to the LoginView*/
-    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+    //if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
     //Before the movies have been loaded
     if (movies.length === 0) return <div className="main-view" />;
