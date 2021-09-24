@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
+import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
@@ -12,7 +13,8 @@ export class MainView extends React.Component {
     this.state = {
       movies: [],
       selectedMovie: null,
-      user: null
+      user: null,
+      register: false
     }
   }
 
@@ -46,12 +48,20 @@ export class MainView extends React.Component {
     });
   }
 
+  SignIn(register) {
+    this.setState({
+      register
+    });
+  }
+
   render() {
-    const { movies, selectedMovie } = this.state;
+    const { movies, selectedMovie, register, user } = this.state;
+
+    if (!register) return <RegistrationView SignIn={register => this.SignIn(register)} />
 
     /*If there is no user, the LoginView is rendered. If there is a user
     logged in, the user details are *passed as a prop to the LoginView*/
-    //if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
     //Before the movies have been loaded
     if (movies.length === 0) return <div className="main-view" />;
@@ -60,21 +70,20 @@ export class MainView extends React.Component {
       <div className="main-view">
         {/*If the state of 'selectedMovie' is not null, that selected movie
         will be returned otherwise, all *movies will be returned*/}
-        {selectedMovie ? (
+        {selectedMovie ?
           <MovieView
             movie={selectedMovie}
             onBackClick={newSelectedMovie => {
               this.setSelectedMovie(newSelectedMovie);
             }} />
-        ) : (
-          movies.map((movie) => (
+          : movies.map((movie) => (
             <MovieCard
               key={movie._id}
               movie={movie}
               onMovieClick={(newSelectedMovie) => {
                 this.setSelectedMovie(newSelectedMovie)
-              }} />))
-        )
+              }} />
+          ))
         }
       </div>
     );
