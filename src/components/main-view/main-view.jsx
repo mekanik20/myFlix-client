@@ -8,7 +8,7 @@ import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 
-export class MainView extends React.Component {
+export default class MainView extends React.Component {
 
   constructor() {
     super();
@@ -57,9 +57,9 @@ export class MainView extends React.Component {
   }
 
   render() {
-    const { movies, selectedMovie, register, user } = this.state;
+    const { movies, selectedMovie, user, register } = this.state;
 
-    if (!register) return <RegistrationView SignIn={register => this.SignIn(register)} />
+    if (!register) return <RegistrationView onRegistration={register => this.onRegistration(register)} />
 
     /*If there is no user, the LoginView is rendered. If there is a user
     logged in, the user details are *passed as a prop to the LoginView*/
