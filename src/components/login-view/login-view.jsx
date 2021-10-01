@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
 
 export function LoginView(props) {
   const [username, setUsername] = useState('');
@@ -23,7 +24,7 @@ export function LoginView(props) {
         Password:
         <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
       </label>
-      <button type="submit" onClick={handleSubmit}>Submit</button>
+      <Button variant="outline-primary" type="submit" onClick={handleSubmit}>Submit</Button>
     </form>
   );
 }

@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
 
 export function RegistrationView(props) {
   const [username, setUsername] = useState('');
+  const [name, SetName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [birthDate, setBirthDate] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password, email, birthDate);
-    props.SignIn(username);
+    console.log(username, name, password, email, birthDate);
+    props.onRegistration(username);
   }
 
   return (
@@ -31,7 +33,7 @@ export function RegistrationView(props) {
         Birth Date:
         <input type="date" value={birthDate} onChange={e => setBirthDate(e.target.value)} />
       </label>
-      <button type="submit" onClick={handleSubmit}>Submit</button>
+      <Button variant="outline-primary" type="submit" onClick={handleSubmit}>Submit</Button>
     </form>
   );
 }

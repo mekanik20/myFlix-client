@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
 
 
 export class MovieView extends React.Component {
@@ -10,7 +11,7 @@ export class MovieView extends React.Component {
     return (
       <div className="movie-view">
         <div className="movie-poster">
-          <img src={movie.ImagePath} />
+          <img src={movie.imageURL} />
         </div>
         <div className="movie-title">
           <span className="label">Title: </span>
@@ -28,7 +29,7 @@ export class MovieView extends React.Component {
           <span className="label">Director: </span>
           <span className="value">{movie.Director}</span>
         </div>
-        <button onClick={() => { onBackClick(null); }}>Back</button>
+        <Button variant="outline-secondary" onClick={() => { onBackClick(null); }}>Back</Button>
 
       </div>
     );
@@ -39,7 +40,7 @@ MovieView.propTypes = {
   movie: PropTypes.shape({
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
-    ImagePath: PropTypes.string.isRequired
+    imageURL: PropTypes.string.isRequired
   }).isRequred,
   onMovieClick: PropTypes.func.isRequired
 };
