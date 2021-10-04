@@ -25955,7 +25955,7 @@ class MovieCard extends _reactDefault.default.Component {
                                 lineNumber: 15
                             },
                             __self: this,
-                            children: movie.Description
+                            children: movie.Genre.Name
                         }),
                         /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
                             onClick: ()=>onMovieClick(movie)
@@ -26307,7 +26307,7 @@ class MovieView extends _reactDefault.default.Component {
                                 lineNumber: 26
                             },
                             __self: this,
-                            children: movie.Genre
+                            children: movie.Genre.Name
                         })
                     ]
                 }),
@@ -26335,7 +26335,7 @@ class MovieView extends _reactDefault.default.Component {
                                 lineNumber: 30
                             },
                             __self: this,
-                            children: movie.Director
+                            children: movie.Director.Name
                         })
                     ]
                 }),
