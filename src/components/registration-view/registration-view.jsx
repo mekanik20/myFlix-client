@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 export function RegistrationView(props) {
   const [username, setUsername] = useState('');
-  const [name, SetName] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [birthDate, setBirthDate] = useState('');
@@ -15,8 +16,28 @@ export function RegistrationView(props) {
     props.onRegistration(username);
   }
 
+  axios.post('https://myflixcf.herokuapp.com/users', {
+    Name: name,
+    Username: username,
+    Password: password,
+    Email: email,
+    Birthdate: birthDate
+  })
+    .then(response => {
+      const data = response.data;
+      console.log(data);
+      window.open('/', '_self'); //second argument is necessary so the page opens in current tab
+    })
+    .catch(e => {
+      console.log('error registering the user')
+    });
+
   return (
     <Form>
+      <Form.Group controlId="formName">
+        <Form.Label>Name:</Form.Label>
+        <Form.Control type="text" onChange={e => setName(e.target.value)} />
+      </Form.Group>
       <Form.Group controlId="formUsername">
         <Form.Label>Username:</Form.Label>
         <Form.Control type="text" onChange={e => setUsername(e.target.value)} />
@@ -37,22 +58,6 @@ export function RegistrationView(props) {
     </Form>
   );
 }
-
-axios.post('https://myflixcf.herokuapp.com/users', {
-  Name: name,
-  Username: username,
-  Password: password,
-  Email: email,
-  Birthdate: birthdate
-})
-  .then(response => {
-    const data = response.data;
-    console.log(data);
-    window.open('/', '_self'); //second argument is necessary so the page opens in current tab
-  })
-  .catch(e => {
-    console.log('error registering the user')
-  });
 
 RegistrationView.propTypes = {
   register: PropTypes.shape({
