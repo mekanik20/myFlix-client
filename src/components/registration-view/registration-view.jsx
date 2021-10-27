@@ -13,7 +13,22 @@ export function RegistrationView(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(username, name, password, email, birthDate);
-    props.onRegistration(username);
+
+    axios.post('https://myflixcf.herokuapp.com/users', {
+      Name: name,
+      Username: username,
+      Password: password,
+      Email: email,
+      Birthdate: birthDate
+    })
+      .then(response => {
+        const data = response.data;
+        console.log(data);
+        window.open('/', '_self');
+      })
+      .catch(e => {
+        console.log('error registering user')
+      });
   }
 
   axios.post('https://myflixcf.herokuapp.com/users', {

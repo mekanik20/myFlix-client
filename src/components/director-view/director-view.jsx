@@ -18,7 +18,7 @@ export function DirectorView(props) {
       </div>
       <div className="director-birthyear">
         <span className="label">Date of Birth: </span>
-        <span className="value">{director.birthyear}</span>
+        <span className="value">{director.Birth}</span>
       </div>
       <Link to={`/`}>
         <Button className='outline-secondary'>Back to movies</Button>
