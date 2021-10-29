@@ -1,9 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Navbar, Nav, Row, Col, Button } from 'react-bootstrap';
 
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect, Link } from "react-router-dom";
 
 import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
@@ -12,6 +11,8 @@ import { MovieView } from '../movie-view/movie-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
 import { ProfileView } from '../profile-view/profile-view';
+import NavbarCollapse from 'react-bootstrap/esm/NavbarCollapse';
+import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';
 
 export default class MainView extends React.Component {
 
@@ -47,12 +48,29 @@ property in state to that *particular user*/
     this.getMovies(authData.token);
   }
 
+  getUser(token) {
+    const user = localStorage.getItem('user');
+    axios.get('https://myflixcf.herokuapp.com/users/:Username', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then((response) => {
+        this.setState({
+          username: response.data.username,
+          password: response.data.password,
+          email: response.data.email,
+          birthday: response.data.birthday
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   getMovies(token) {
     axios.get('https://myflixcf.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        // Assign the result to the state
         this.setState({
           movies: response.data
         });
@@ -83,6 +101,20 @@ property in state to that *particular user*/
 
     return (
       <Router>
+        {user && <header className="mb-4" style={{ marginTop: 150 }}>
+          <Navbar expand="lg" fixed="top" className="nav-bar" bg="primary" variant="dark">
+            <NavbarToggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="mr-auto">
+                <Nav.Link as={Link} to={`/`}>Home</Nav.Link>
+                <Nav.Link as={Link} to={`/users/${user}`}>My Account</Nav.Link>
+              </Nav>
+              <Link to={`/`}>
+                <Button variant="dark" className="logout-button" onClick={() => this.onLoggedOut()}>Logout</Button>
+              </Link>
+            </Navbar.Collapse>
+          </Navbar>
+        </header>}
         <Row className="main-view justify-content-md-center">
 
           <Route exact path="/" render={() => {
