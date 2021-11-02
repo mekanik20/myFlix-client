@@ -55,10 +55,11 @@ property in state to that *particular user*/
     })
       .then((response) => {
         this.setState({
-          username: response.data.username,
+          username: response.data.Username,
           password: response.data.password,
-          email: response.data.email,
-          birthday: response.data.birthday
+          email: response.data.Email,
+          birthday: response.data.Birthday,
+          FavoriteMovies: response.data.FavoriteMovies,
         });
       })
       .catch(function (error) {
@@ -87,6 +88,26 @@ property in state to that *particular user*/
     this.setState({
       user: null
     });
+  }
+
+  getUser(token) {
+    const username = localStorage.getItem('user');
+    axios.get(`https://myflixcf.herokuapp.com/users/${username}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then(response => {
+        this.setState({
+          name: response.data.name,
+          username: response.data.username,
+          password: response.data.password,
+          email: response.data.email,
+          birthday: response.data.birthday,
+          FavoriteMovies: response.data.FavoriteMovies
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   onRegister(user) {
