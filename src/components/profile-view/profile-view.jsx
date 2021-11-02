@@ -24,7 +24,7 @@ export class ProfileView extends React.Component {
 
   getUser(token) {
     const user = localStorage.getItem('user');
-    axios.get('https://myflixcf.herokuapp.com/users/:Username', {
+    axios.get(`https://myflixcf.herokuapp.com/users/${user}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((response) => {
@@ -44,7 +44,7 @@ export class ProfileView extends React.Component {
   removeFavoriteMovie(_id) {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('user');
-    axios.delete(`https://myflixcf.herokuapp.com/users/${username} /movies/${movie._id} `, {
+    axios.delete(`https://myflixcf.herokuapp.com/users/${username}/FavoriteMovies/${_id} `, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(() => {
@@ -129,7 +129,7 @@ export class ProfileView extends React.Component {
         <h2>Favorite Movies:</h2>
         {FavoriteMovies.length > 0 && this.props.movies.map((movie) => {
           if (
-            movie._id === FavoriteMovies.find((favorite) => favorite === movie.id)
+            movie._id === FavoriteMovies.find((favorite) => favorite === movie._id)
           ) {
             return (
               <Card className="card-style" key={movie._id}>

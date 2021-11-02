@@ -40,7 +40,7 @@ export function RegistrationView(props) {
     } else if (password.length < 8) {
       setPasswordError("Password must be longer than 8 characters");
     }
-  }, [username]);
+  }, [password]);
 
   return (
     <>

@@ -25003,7 +25003,7 @@ function RegistrationView(props) {
         if (password === "" || password.length >= 8) setPasswordError("");
         else if (password.length < 8) setPasswordError("Password must be longer than 8 characters");
     }, [
-        username
+        password
     ]);
     return(/*#__PURE__*/ _jsxRuntime.jsx(_jsxRuntime.Fragment, {
         children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Form, {
@@ -40093,7 +40093,7 @@ class MovieCard extends _reactDefault.default.Component {
     }
 }
 MovieCard.propTypes = {
-    Movie: _propTypesDefault.default.shape({
+    movie: _propTypesDefault.default.shape({
         Title: _propTypesDefault.default.string.isRequired,
         Description: _propTypesDefault.default.string.isRequired,
         imageURL: _propTypesDefault.default.string.isRequired
@@ -40655,7 +40655,7 @@ class ProfileView extends _reactDefault.default.Component {
     }
     getUser(token) {
         const user = localStorage.getItem('user');
-        _axiosDefault.default.get('https://myflixcf.herokuapp.com/users/:Username', {
+        _axiosDefault.default.get(`https://myflixcf.herokuapp.com/users/${user}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -40674,7 +40674,7 @@ class ProfileView extends _reactDefault.default.Component {
     removeFavoriteMovie(_id) {
         const token = localStorage.getItem('token');
         const username = localStorage.getItem('user');
-        _axiosDefault.default.delete(`https://myflixcf.herokuapp.com/users/${username} /movies/${movie._id} `, {
+        _axiosDefault.default.delete(`https://myflixcf.herokuapp.com/users/${username}/FavoriteMovies/${_id} `, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -40770,7 +40770,7 @@ class ProfileView extends _reactDefault.default.Component {
                     children: "Favorite Movies:"
                 }),
                 FavoriteMovies.length > 0 && this.props.movies.map((movie)=>{
-                    if (movie._id === FavoriteMovies.find((favorite)=>favorite === movie.id
+                    if (movie._id === FavoriteMovies.find((favorite)=>favorite === movie._id
                     )) return(/*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Card, {
                         className: "card-style",
                         __source: {
